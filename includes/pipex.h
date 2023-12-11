@@ -6,7 +6,7 @@
 /*   By: mickert <mickert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:40:22 by mickert           #+#    #+#             */
-/*   Updated: 2023/12/10 15:58:44 by mickert          ###   ########.fr       */
+/*   Updated: 2023/12/11 17:18:38 by mickert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 int		main(int argc, char **argv, char **envp);
 void	parent_process(char **argv, int *p_fd, char **envp);
 void	child_process(char **argv, int *p_fd, char **envp);
-int		execute(char *argv, char **envp);
-char	*cmd_path(char *cmd, char **envp);
+void		execute(char *argv, char **envp, int *p_fd);
+char	*command_path(char *cmd, char **envp);
+int		fd_open(char *argv, int flag);
 
 #endif
