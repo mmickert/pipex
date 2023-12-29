@@ -6,7 +6,7 @@
 #    By: mickert <mickert@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 15:40:11 by mickert           #+#    #+#              #
-#    Updated: 2023/12/07 15:57:16 by mickert          ###   ########.fr        #
+#    Updated: 2023/12/12 16:41:48 by mickert          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 # CFLAGS = -fsanitize=address -Wunreachable-code
 
-SRC = source/pipex.c 
+SRC = source/pipex.c source/utils.c
 
 ODIR = objectives
 OBJ = $(SRC:source/%.c=$(ODIR)/%.o)
