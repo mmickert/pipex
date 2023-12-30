@@ -6,17 +6,17 @@
 #    By: mickert <mickert@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/07 15:40:11 by mickert           #+#    #+#              #
-#    Updated: 2023/12/12 16:41:48 by mickert          ###   ########.fr        #
+#    Updated: 2023/12/29 16:01:21 by mickert          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror 
 # CFLAGS = -fsanitize=address -Wunreachable-code
 
 SRC = source/pipex.c source/utils.c
 
-ODIR = objectives
+ODIR = ./obj
 OBJ = $(SRC:source/%.c=$(ODIR)/%.o)
 
 HEADER = ./includes/pipex.h
@@ -36,7 +36,7 @@ $(NAME): $(OBJ) $(LIBFT)
 $(LIBFT): | $(LIBFT_OBJDIR)
 	$(MAKE) -C $(LIBFTDIR)
 
-$(ODIR)/%.o: source/%.c $(HEADER) | $(ODIR)
+$(ODIR)/%.o: %.c $(HEADER) | $(ODIR)
 	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(ODIR):

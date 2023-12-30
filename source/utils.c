@@ -6,7 +6,7 @@
 /*   By: mickert <mickert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:40:48 by mickert           #+#    #+#             */
-/*   Updated: 2023/12/29 14:30:04 by mickert          ###   ########.fr       */
+/*   Updated: 2023/12/30 12:42:24 by mickert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ char	*command_path(char *cmd, char **envp)
 
 	path = NULL;
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH=", 5) == 0)
+	while (envp[i] != NULL && ft_strnstr(envp[i], "PATH=", 5) == 0)
 		i++;
-	paths = ft_split(envp[i] + 5, ':');
+	if (envp[i])
+		paths = ft_split(envp[i] + 5, ':');
+	else
+		paths = ft_split(envp[0] + 5, ':');
 	i = 0;
 	while (paths[i])
 	{

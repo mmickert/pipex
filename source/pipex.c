@@ -6,7 +6,7 @@
 /*   By: mickert <mickert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 15:39:26 by mickert           #+#    #+#             */
-/*   Updated: 2023/12/29 14:29:08 by mickert          ###   ########.fr       */
+/*   Updated: 2023/12/30 12:45:01 by mickert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5 || argc > 5)
 	{
-		ft_printf("Usage: <file1> <cmd1> <cmd2> <file2>\n");
+		ft_putstr_fd("Usage: <file1> <cmd1> <cmd2> <file2>\n", 2);
 		exit(1);
 	}
 	else if (pipe(p_fd) == -1)
@@ -46,14 +46,13 @@ int	main(int argc, char **argv, char **envp)
 }
 // system("leaks pipex");
 
-void	execute(char *argv, char **envp, int *p_fd)
+void	execute(char *argv, char **envp)
 {
 	char	**cmd;
 	char	*cmd_path;
 	int		i;
 
 	i = 0;
-	(void)p_fd;
 	while (argv[i] != '\0' && ((argv[i] >= 9 && argv[i] <= 13)
 			|| argv[i] == 32))
 		i++;
@@ -86,7 +85,7 @@ void	child_process_2(char **argv, int *p_fd, char **envp)
 	close(fd_write);
 	dup2(p_fd[0], STDIN_FILENO);
 	close(p_fd[0]);
-	execute(argv[3], envp, p_fd);
+	execute(argv[3], envp);
 	exit(1);
 }
 
@@ -103,16 +102,13 @@ int	parent_process(char **argv, int *p_fd, char **envp)
 		exit(1);
 	}
 	if (pid_2 == 0)
-	{
 		child_process_2(argv, p_fd, envp);
-		return (0);
-	}
 	else
 	{
 		close(p_fd[1]);
 		waitpid(pid_2, &status, 0);
-		return (WEXITSTATUS(status));
 	}
+	return (WEXITSTATUS(status));
 }
 
 void	child_process_1(char **argv, int *p_fd, char **envp)
@@ -127,6 +123,6 @@ void	child_process_1(char **argv, int *p_fd, char **envp)
 	close(fd_in);
 	dup2(p_fd[1], STDOUT_FILENO);
 	close(p_fd[1]);
-	execute(argv[2], envp, NULL);
+	execute(argv[2], envp);
 	exit(1);
 }
